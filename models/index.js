@@ -7,26 +7,12 @@ const sequelize = new Sequelize(database.database, database.username, database.p
   dialect: database.dialect
 });
 
+sequelize.sync()
+    .then(() => {
+        console.log("[+] Synced database");
+    })
+    .catch((err) => {
+        console.log("Failed to sync db: " + err.message);
+    });
 
-const usersDefine = require("./users.model.js");
-const tagsDefine = require("./tags.model.js");
-const tasksDefine = require("./tasks.model.js");
-
-const db = {
-    Sequelize: Sequelize,
-    sequelize: sequelize,
-    users: usersDefine(sequelize, Sequelize),
-    tags: tagsDefine(sequelize, Sequelize),
-    tasks: tasksDefine(sequelize, Sequelize)
-};
-
-
-db.tags.belongsToMany(db.tasks, { through: 'TaskTag' });
-db.tasks.belongsToMany(db.tags, { through: 'TaskTag' });
-
-db.tasks.belongsTo(db.users, { as: 'createdBy', foreignKey: 'created_by' })
-db.tasks.belongsTo(db.users, { as: 'assignTo', foreignKey: 'assign_to' })
-
-
-
-module.exports = db;
+module.exports = sequelize;

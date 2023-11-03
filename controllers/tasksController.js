@@ -1,10 +1,10 @@
 const express = require('express');
 const { verifyToken } = require('../middleware/verifyToken');
 const { verifyParams } = require('../middleware/verifyParams');
-const db = require("../models");
-const Tasks = db.tasks;
-const Users = db.users;
-const Tags = db.tags;
+
+const Tasks = require('../models/tasks.model');
+const Users = require('../models/users.model');
+const Tags = require('../models/tags.model');
 
 const router = express.Router();
 

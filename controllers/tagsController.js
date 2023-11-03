@@ -1,6 +1,5 @@
 const express = require('express');
-const db = require("../models");
-const Tags = db.tags;
+const Tags = require('../models/tags.model');
 
 const { verifyToken } = require('../middleware/verifyToken');
 const { verifyParams } = require('../middleware/verifyParams');

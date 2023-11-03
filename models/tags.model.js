@@ -1,19 +1,10 @@
 const { Sequelize } = require("sequelize");
+const sequelize = require('./index');
 
-/**
- * 
- * @param {Sequelize} sequelize 
- * @param {Sequelize} Sequelize 
- * @returns {Tags}
- */
-const tagsDefine = (sequelize, Sequelize) => {
-  const Tags = sequelize.define("tags", {
-    name: {
-      type: Sequelize.STRING
-    }
-  });
+const Tags = sequelize.define("tags", {
+  name: {
+    type: Sequelize.STRING
+  }
+});
 
-  return Tags;
-};
-
-module.exports = tagsDefine;
+module.exports = Tags;
