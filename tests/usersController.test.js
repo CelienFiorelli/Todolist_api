@@ -1,5 +1,7 @@
 const request = require('supertest');
 const app = require('../app');
+const db = require("../models");
+const Users = db.users;
 
 describe('Users Controller', () => {
   test('GET /user - It should respond with list of users', async () => {
@@ -9,8 +11,8 @@ describe('Users Controller', () => {
   });
 
   test('GET /user/:id - It should respond with a specific user', async () => {
-    const userId = 1;
-    const response = await request(app).get(`/user/${userId}`);
+    const user = await Users.findOrCreate({where: {username: "testUser"}, defaults: { username: "testUser", password: "pwd" }})
+    const response = await request(app).get(`/user/${user[0].id}`);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('username');
     expect(response.body).toHaveProperty('role');

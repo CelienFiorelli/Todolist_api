@@ -1,4 +1,5 @@
 const request = require('supertest');
+const bcrypt = require('bcrypt');
 const app = require('../app');
 const db = require("../models");
 const Users = db.users;
@@ -20,12 +21,12 @@ describe('Auth Controller', () => {
     });
 
     test('POST /register - It should handle registration of an existing user', async () => {
-        try {
-            await Users.create({username: "existingUser", password: "pwd"})
-        } catch (error) {}
+        const hash = bcrypt.hashSync("password123", bcrypt.genSaltSync(10));
+        await Users.findOrCreate({where: {username: "existingUser"}, defaults: { username: "existingUser", password: hash }})
+        
         const existingUser = {
             username: 'existingUser',
-            password: 'password123',
+            password: hash,
         };
 
         const response = await request(app)
