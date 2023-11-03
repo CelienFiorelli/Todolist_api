@@ -1,8 +1,7 @@
 const request = require('supertest');
 const bcrypt = require('bcrypt');
 const app = require('../app');
-const db = require("../models");
-const Users = db.users;
+const Users = require('../models/users.model');
 
 describe('Auth Controller', () => {
     test('POST /register - It should register a new user', async () => {
