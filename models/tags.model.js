@@ -3,7 +3,8 @@ const sequelize = require('./index');
 
 const Tags = sequelize.define("tags", {
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    unique: true
   }
 });
 
