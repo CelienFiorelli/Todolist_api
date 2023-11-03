@@ -1,4 +1,4 @@
-const { Sequelize, Model } = require("sequelize");
+const { Sequelize } = require("sequelize");
 
 /**
  * 
