@@ -1,4 +1,3 @@
-const { token } = require('../config.json');
 const jwt = require('jsonwebtoken');
 
 
@@ -6,7 +5,7 @@ const verifyToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (authHeader) {
-        jwt.verify(authHeader, token, async (err, user) => {
+        jwt.verify(authHeader, process.env.TOKEN, async (err, user) => {
             if (err) {
                 return res.sendStatus(403);
             }

@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { token } = require('../config.json');
 const express = require('express');
 const { verifyParams } = require("../middleware/verifyParams");
 
@@ -19,7 +18,7 @@ router.post('/register', verifyParams(["username", "password"]), async (req, res
             password: hash,
         })
 
-        const accessToken = jwt.sign({ userId: user.id }, token);
+        const accessToken = jwt.sign({ userId: user.id }, process.env.TOKEN);
         return res.send({ token: accessToken })
         
     } catch (error) {
@@ -35,7 +34,7 @@ router.post('/login', verifyParams(["username", "password"]), async (req, res) =
             return res.status(403).send({ message: "invalid credentials"})
         }
 
-        const accessToken = jwt.sign({ userId: user.id }, token);
+        const accessToken = jwt.sign({ userId: user.id }, process.env.TOKEN);
         return res.send({ token: accessToken })
     } catch (error) {
         return res.status(404).send({
